@@ -1,8 +1,7 @@
 "use client";
 
-import { Link } from "@/components/intl-link";
+import { Link, usePathname } from "@/components/intl-link";
 import clsx from "clsx";
-import { usePathname } from "next/navigation";
 import { navigation } from "./docslinks";
 
 type NavigationProps = {

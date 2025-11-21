@@ -1,6 +1,5 @@
 "use client";
-import { Link } from "@/components/intl-link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/components/intl-link";
 import { TabProps } from "./types";
 export const Tab = ({ label, href, icon }: TabProps) => {
   const pathname = usePathname();
