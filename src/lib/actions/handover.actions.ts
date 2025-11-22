@@ -18,8 +18,10 @@ const HandoverRecordSchema = z.object({
   to_driver_id: z.string().uuid("Invalid to driver ID."),
   handover_date: z.string().datetime("Invalid handover date format."),
   handover_odometer: z.number().int().min(0, "Odometer reading must be non-negative."),
-  handover_notes: z.string().optional().nullable(),
-  handover_condition: z.enum(["excellent", "good", "fair", "poor"]).default("good"),
+  handover_notes: z.string().optional().nullable(),  handover_condition: z.enum(["excellent", "good", "fair", "poor"]),
+  exterior_condition: z.enum(["excellent", "good", "fair", "poor"]),
+  interior_condition: z.enum(["excellent", "good", "fair", "poor"]),
+  odometer_reading: z.number().min(0),.default("good"),
   is_confirmed: z.boolean().default(false),
   confirmation_date: z.string().datetime("Invalid confirmation date format.").optional().nullable(),
 });
