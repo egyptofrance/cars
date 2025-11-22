@@ -43,7 +43,7 @@ export async function UserList({
           <TableBody>
             {users.map((user) => {
               const isAppAdmin = user.user_roles.some(
-                (role) => role.role === "admin",
+                (role: any) => role.role === "admin",
               );
               const email =
                 user.user_application_settings?.email_readonly ?? "-";
