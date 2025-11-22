@@ -7,30 +7,10 @@ export type Json =
   | Json[]
 
 export type Database = {
-  graphql_public: {
-    Tables: {
-      [_ in never]: never
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      graphql: {
-        Args: {
-          operationName?: string
-          query?: string
-          variables?: Json
-          extensions?: Json
-        }
-        Returns: Json
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "13.0.5"
   }
   public: {
     Tables: {
@@ -526,6 +506,272 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fuel_records: {
+        Row: {
+          approval_status: string | null
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string | null
+          driver_id: string
+          fuel_type: string
+          id: string
+          liters: number
+          location: string | null
+          notes: string | null
+          odometer_image_url: string | null
+          odometer_reading: number
+          price_per_liter: number
+          pump_reading_image_url: string | null
+          receipt_image_url: string | null
+          refuel_date: string
+          requires_approval: boolean | null
+          station_name: string | null
+          total_cost: number | null
+          updated_at: string | null
+          vehicle_id: string
+        }
+        Insert: {
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string | null
+          driver_id: string
+          fuel_type: string
+          id?: string
+          liters: number
+          location?: string | null
+          notes?: string | null
+          odometer_image_url?: string | null
+          odometer_reading: number
+          price_per_liter: number
+          pump_reading_image_url?: string | null
+          receipt_image_url?: string | null
+          refuel_date?: string
+          requires_approval?: boolean | null
+          station_name?: string | null
+          total_cost?: number | null
+          updated_at?: string | null
+          vehicle_id: string
+        }
+        Update: {
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string | null
+          driver_id?: string
+          fuel_type?: string
+          id?: string
+          liters?: number
+          location?: string | null
+          notes?: string | null
+          odometer_image_url?: string | null
+          odometer_reading?: number
+          price_per_liter?: number
+          pump_reading_image_url?: string | null
+          receipt_image_url?: string | null
+          refuel_date?: string
+          requires_approval?: boolean | null
+          station_name?: string | null
+          total_cost?: number | null
+          updated_at?: string | null
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fuel_records_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "workspace_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fuel_records_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "workspace_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fuel_records_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      maintenance_records: {
+        Row: {
+          approval_status: string | null
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string
+          id: string
+          invoice_image_url: string | null
+          labor_cost: number | null
+          maintenance_date: string
+          maintenance_type: string
+          next_maintenance_date: string | null
+          next_maintenance_odometer: number | null
+          notes: string | null
+          odometer_reading: number
+          parts_cost: number | null
+          receipt_image_url: string | null
+          requires_approval: boolean | null
+          scheduled_date: string | null
+          service_provider: string | null
+          service_provider_phone: string | null
+          status: string | null
+          total_cost: number | null
+          updated_at: string | null
+          vehicle_id: string
+        }
+        Insert: {
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description: string
+          id?: string
+          invoice_image_url?: string | null
+          labor_cost?: number | null
+          maintenance_date?: string
+          maintenance_type: string
+          next_maintenance_date?: string | null
+          next_maintenance_odometer?: number | null
+          notes?: string | null
+          odometer_reading: number
+          parts_cost?: number | null
+          receipt_image_url?: string | null
+          requires_approval?: boolean | null
+          scheduled_date?: string | null
+          service_provider?: string | null
+          service_provider_phone?: string | null
+          status?: string | null
+          total_cost?: number | null
+          updated_at?: string | null
+          vehicle_id: string
+        }
+        Update: {
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string
+          id?: string
+          invoice_image_url?: string | null
+          labor_cost?: number | null
+          maintenance_date?: string
+          maintenance_type?: string
+          next_maintenance_date?: string | null
+          next_maintenance_odometer?: number | null
+          notes?: string | null
+          odometer_reading?: number
+          parts_cost?: number | null
+          receipt_image_url?: string | null
+          requires_approval?: boolean | null
+          scheduled_date?: string | null
+          service_provider?: string | null
+          service_provider_phone?: string | null
+          status?: string | null
+          total_cost?: number | null
+          updated_at?: string | null
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "maintenance_records_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "workspace_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "maintenance_records_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "maintenance_records_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      maintenance_reminders: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string
+          dismissed_at: string | null
+          due_date: string | null
+          due_odometer: number | null
+          id: string
+          last_notified_at: string | null
+          notify_before_days: number | null
+          notify_before_km: number | null
+          reminder_type: string
+          status: string | null
+          vehicle_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description: string
+          dismissed_at?: string | null
+          due_date?: string | null
+          due_odometer?: number | null
+          id?: string
+          last_notified_at?: string | null
+          notify_before_days?: number | null
+          notify_before_km?: number | null
+          reminder_type: string
+          status?: string | null
+          vehicle_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string
+          dismissed_at?: string | null
+          due_date?: string | null
+          due_odometer?: number | null
+          id?: string
+          last_notified_at?: string | null
+          notify_before_days?: number | null
+          notify_before_km?: number | null
+          reminder_type?: string
+          status?: string | null
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "maintenance_reminders_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "maintenance_reminders_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
             referencedColumns: ["id"]
           },
         ]
@@ -1168,6 +1414,90 @@ export type Database = {
           },
         ]
       }
+      trips: {
+        Row: {
+          created_at: string | null
+          customer_name: string | null
+          distance_km: number | null
+          driver_id: string
+          end_location: string | null
+          end_odometer: number | null
+          end_time: string | null
+          id: string
+          notes: string | null
+          route_description: string | null
+          start_location: string
+          start_odometer: number
+          start_time: string
+          status: string | null
+          trip_cost: number | null
+          trip_date: string
+          trip_purpose: string
+          trip_revenue: number | null
+          updated_at: string | null
+          vehicle_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          customer_name?: string | null
+          distance_km?: number | null
+          driver_id: string
+          end_location?: string | null
+          end_odometer?: number | null
+          end_time?: string | null
+          id?: string
+          notes?: string | null
+          route_description?: string | null
+          start_location: string
+          start_odometer: number
+          start_time: string
+          status?: string | null
+          trip_cost?: number | null
+          trip_date: string
+          trip_purpose: string
+          trip_revenue?: number | null
+          updated_at?: string | null
+          vehicle_id: string
+        }
+        Update: {
+          created_at?: string | null
+          customer_name?: string | null
+          distance_km?: number | null
+          driver_id?: string
+          end_location?: string | null
+          end_odometer?: number | null
+          end_time?: string | null
+          id?: string
+          notes?: string | null
+          route_description?: string | null
+          start_location?: string
+          start_odometer?: number
+          start_time?: string
+          status?: string | null
+          trip_cost?: number | null
+          trip_date?: string
+          trip_purpose?: string
+          trip_revenue?: number | null
+          updated_at?: string | null
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trips_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "workspace_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trips_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_api_keys: {
         Row: {
           created_at: string
@@ -1337,6 +1667,378 @@ export type Database = {
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vehicle_handover_records: {
+        Row: {
+          admin_notes: string | null
+          approved_at: string | null
+          approved_by_admin: string | null
+          confirmed_at: string | null
+          confirmed_by_driver: boolean | null
+          created_at: string | null
+          created_by: string | null
+          damage_description: string | null
+          driver_notes: string | null
+          driver_signature: string | null
+          exterior_condition: string
+          from_driver_id: string | null
+          fuel_level: number | null
+          handover_date: string
+          has_damages: boolean | null
+          id: string
+          interior_condition: string
+          odometer_reading: number
+          to_driver_id: string
+          vehicle_id: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          approved_at?: string | null
+          approved_by_admin?: string | null
+          confirmed_at?: string | null
+          confirmed_by_driver?: boolean | null
+          created_at?: string | null
+          created_by?: string | null
+          damage_description?: string | null
+          driver_notes?: string | null
+          driver_signature?: string | null
+          exterior_condition: string
+          from_driver_id?: string | null
+          fuel_level?: number | null
+          handover_date?: string
+          has_damages?: boolean | null
+          id?: string
+          interior_condition: string
+          odometer_reading: number
+          to_driver_id: string
+          vehicle_id: string
+        }
+        Update: {
+          admin_notes?: string | null
+          approved_at?: string | null
+          approved_by_admin?: string | null
+          confirmed_at?: string | null
+          confirmed_by_driver?: boolean | null
+          created_at?: string | null
+          created_by?: string | null
+          damage_description?: string | null
+          driver_notes?: string | null
+          driver_signature?: string | null
+          exterior_condition?: string
+          from_driver_id?: string | null
+          fuel_level?: number | null
+          handover_date?: string
+          has_damages?: boolean | null
+          id?: string
+          interior_condition?: string
+          odometer_reading?: number
+          to_driver_id?: string
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vehicle_handover_records_approved_by_admin_fkey"
+            columns: ["approved_by_admin"]
+            isOneToOne: false
+            referencedRelation: "workspace_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicle_handover_records_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicle_handover_records_from_driver_id_fkey"
+            columns: ["from_driver_id"]
+            isOneToOne: false
+            referencedRelation: "workspace_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicle_handover_records_to_driver_id_fkey"
+            columns: ["to_driver_id"]
+            isOneToOne: false
+            referencedRelation: "workspace_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicle_handover_records_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vehicle_images: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          handover_record_id: string | null
+          id: string
+          image_type: string
+          image_url: string
+          odometer_reading: number | null
+          taken_at: string | null
+          taken_by: string | null
+          vehicle_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          handover_record_id?: string | null
+          id?: string
+          image_type: string
+          image_url: string
+          odometer_reading?: number | null
+          taken_at?: string | null
+          taken_by?: string | null
+          vehicle_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          handover_record_id?: string | null
+          id?: string
+          image_type?: string
+          image_url?: string
+          odometer_reading?: number | null
+          taken_at?: string | null
+          taken_by?: string | null
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vehicle_images_handover_record_id_fkey"
+            columns: ["handover_record_id"]
+            isOneToOne: false
+            referencedRelation: "vehicle_handover_records"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicle_images_taken_by_fkey"
+            columns: ["taken_by"]
+            isOneToOne: false
+            referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicle_images_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vehicles: {
+        Row: {
+          brand: string
+          color: string | null
+          created_at: string | null
+          created_by: string | null
+          current_driver_id: string | null
+          current_odometer: number | null
+          engine_capacity: number | null
+          fuel_type: string
+          id: string
+          insurance_company: string | null
+          insurance_expiry: string | null
+          insurance_policy_number: string | null
+          model: string
+          notes: string | null
+          plate_number: string
+          purchase_date: string | null
+          purchase_odometer: number | null
+          purchase_price: number | null
+          registration_expiry: string | null
+          status: string
+          transmission: string | null
+          updated_at: string | null
+          vin: string | null
+          workspace_id: string
+          year: number
+        }
+        Insert: {
+          brand: string
+          color?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          current_driver_id?: string | null
+          current_odometer?: number | null
+          engine_capacity?: number | null
+          fuel_type: string
+          id?: string
+          insurance_company?: string | null
+          insurance_expiry?: string | null
+          insurance_policy_number?: string | null
+          model: string
+          notes?: string | null
+          plate_number: string
+          purchase_date?: string | null
+          purchase_odometer?: number | null
+          purchase_price?: number | null
+          registration_expiry?: string | null
+          status?: string
+          transmission?: string | null
+          updated_at?: string | null
+          vin?: string | null
+          workspace_id: string
+          year: number
+        }
+        Update: {
+          brand?: string
+          color?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          current_driver_id?: string | null
+          current_odometer?: number | null
+          engine_capacity?: number | null
+          fuel_type?: string
+          id?: string
+          insurance_company?: string | null
+          insurance_expiry?: string | null
+          insurance_policy_number?: string | null
+          model?: string
+          notes?: string | null
+          plate_number?: string
+          purchase_date?: string | null
+          purchase_odometer?: number | null
+          purchase_price?: number | null
+          registration_expiry?: string | null
+          status?: string
+          transmission?: string | null
+          updated_at?: string | null
+          vin?: string | null
+          workspace_id?: string
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vehicles_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicles_current_driver_id_fkey"
+            columns: ["current_driver_id"]
+            isOneToOne: false
+            referencedRelation: "workspace_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicles_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      violations: {
+        Row: {
+          appeal_date: string | null
+          appeal_notes: string | null
+          appeal_status: string | null
+          appealed: boolean | null
+          created_at: string | null
+          created_by: string | null
+          deducted_from_driver: boolean | null
+          description: string
+          driver_id: string | null
+          driver_responsible: boolean | null
+          fine_amount: number
+          id: string
+          location: string | null
+          notes: string | null
+          paid: boolean | null
+          paid_date: string | null
+          payment_receipt_url: string | null
+          updated_at: string | null
+          vehicle_id: string
+          violation_date: string
+          violation_image_url: string | null
+          violation_number: string | null
+          violation_type: string
+        }
+        Insert: {
+          appeal_date?: string | null
+          appeal_notes?: string | null
+          appeal_status?: string | null
+          appealed?: boolean | null
+          created_at?: string | null
+          created_by?: string | null
+          deducted_from_driver?: boolean | null
+          description: string
+          driver_id?: string | null
+          driver_responsible?: boolean | null
+          fine_amount: number
+          id?: string
+          location?: string | null
+          notes?: string | null
+          paid?: boolean | null
+          paid_date?: string | null
+          payment_receipt_url?: string | null
+          updated_at?: string | null
+          vehicle_id: string
+          violation_date: string
+          violation_image_url?: string | null
+          violation_number?: string | null
+          violation_type: string
+        }
+        Update: {
+          appeal_date?: string | null
+          appeal_notes?: string | null
+          appeal_status?: string | null
+          appealed?: boolean | null
+          created_at?: string | null
+          created_by?: string | null
+          deducted_from_driver?: boolean | null
+          description?: string
+          driver_id?: string | null
+          driver_responsible?: boolean | null
+          fine_amount?: number
+          id?: string
+          location?: string | null
+          notes?: string | null
+          paid?: boolean | null
+          paid_date?: string | null
+          payment_receipt_url?: string | null
+          updated_at?: string | null
+          vehicle_id?: string
+          violation_date?: string
+          violation_image_url?: string | null
+          violation_number?: string | null
+          violation_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "violations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "violations_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "workspace_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "violations_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
             referencedColumns: ["id"]
           },
         ]
@@ -1581,6 +2283,44 @@ export type Database = {
           },
         ]
       }
+      workspace_subscription_limits: {
+        Row: {
+          features: Json
+          max_drivers: number
+          max_images: number
+          max_vehicles: number
+          plan_name: string
+          updated_at: string | null
+          workspace_id: string
+        }
+        Insert: {
+          features?: Json
+          max_drivers: number
+          max_images: number
+          max_vehicles: number
+          plan_name: string
+          updated_at?: string | null
+          workspace_id: string
+        }
+        Update: {
+          features?: Json
+          max_drivers?: number
+          max_images?: number
+          max_vehicles?: number
+          plan_name?: string
+          updated_at?: string | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspace_subscription_limits_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: true
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       workspaces: {
         Row: {
           created_at: string
@@ -1608,141 +2348,178 @@ export type Database = {
     }
     Functions: {
       app_admin_get_projects_created_per_month: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           month: string
           number_of_projects: number
         }[]
       }
-      app_admin_get_recent_30_day_signin_count: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
-      app_admin_get_total_organization_count: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
-      app_admin_get_total_project_count: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
-      app_admin_get_total_user_count: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
+      app_admin_get_recent_30_day_signin_count: { Args: never; Returns: number }
+      app_admin_get_total_organization_count: { Args: never; Returns: number }
+      app_admin_get_total_project_count: { Args: never; Returns: number }
+      app_admin_get_total_user_count: { Args: never; Returns: number }
       app_admin_get_user_id_by_email: {
-        Args: {
-          emailarg: string
-        }
+        Args: { emailarg: string }
         Returns: string
       }
       app_admin_get_users_created_per_month: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           month: string
           number_of_users: number
         }[]
       }
       app_admin_get_workspaces_created_per_month: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           month: string
           number_of_workspaces: number
         }[]
       }
+      calculate_cost_per_km: {
+        Args: { end_date: string; start_date: string; vehicle_id_param: string }
+        Returns: number
+      }
+      calculate_fuel_efficiency: {
+        Args: { end_date: string; start_date: string; vehicle_id_param: string }
+        Returns: number
+      }
       check_if_authenticated_user_owns_email: {
-        Args: {
-          email: string
-        }
+        Args: { email: string }
         Returns: boolean
       }
-      custom_access_token_hook: {
-        Args: {
-          event: Json
-        }
-        Returns: Json
-      }
+      custom_access_token_hook: { Args: { event: Json }; Returns: Json }
       decrement_credits: {
-        Args: {
-          org_id: string
-          amount: number
-        }
+        Args: { amount: number; org_id: string }
         Returns: undefined
       }
+      get_all_check_constraints: {
+        Args: never
+        Returns: {
+          check_clause: string
+          constraint_name: string
+          table_name: string
+        }[]
+      }
+      get_all_columns: {
+        Args: never
+        Returns: {
+          character_maximum_length: number
+          column_default: string
+          column_name: string
+          data_type: string
+          is_nullable: string
+          numeric_precision: number
+          numeric_scale: number
+          ordinal_position: number
+          table_name: string
+          udt_name: string
+        }[]
+      }
+      get_all_foreign_keys: {
+        Args: never
+        Returns: {
+          constraint_name: string
+          delete_rule: string
+          from_column: string
+          from_table: string
+          to_column: string
+          to_table: string
+          update_rule: string
+        }[]
+      }
+      get_all_indexes: {
+        Args: never
+        Returns: {
+          indexdef: string
+          indexname: string
+          schemaname: string
+          tablename: string
+        }[]
+      }
+      get_all_primary_keys: {
+        Args: never
+        Returns: {
+          column_name: string
+          constraint_name: string
+          table_name: string
+        }[]
+      }
+      get_all_rls_policies: {
+        Args: never
+        Returns: {
+          cmd: string
+          permissive: string
+          policyname: string
+          qual: string
+          roles: string[]
+          schemaname: string
+          tablename: string
+          with_check: string
+        }[]
+      }
+      get_all_tables: {
+        Args: never
+        Returns: {
+          table_name: string
+          table_type: string
+        }[]
+      }
+      get_all_unique_constraints: {
+        Args: never
+        Returns: {
+          column_name: string
+          constraint_name: string
+          table_name: string
+        }[]
+      }
+      get_all_views: {
+        Args: never
+        Returns: {
+          table_name: string
+          view_definition: string
+        }[]
+      }
       get_customer_workspace_id: {
-        Args: {
-          customer_id_arg: string
-        }
+        Args: { customer_id_arg: string }
         Returns: string
       }
       get_project_workspace_uuid: {
-        Args: {
-          project_id: string
-        }
+        Args: { project_id: string }
         Returns: string
       }
       get_workspace_team_member_admins: {
-        Args: {
-          workspace_id: string
-        }
+        Args: { workspace_id: string }
         Returns: {
           member_id: string
         }[]
       }
       get_workspace_team_member_ids: {
-        Args: {
-          workspace_id: string
-        }
+        Args: { workspace_id: string }
         Returns: {
           member_id: string
         }[]
       }
       has_workspace_permission: {
-        Args: {
-          user_id: string
-          workspace_id: string
-          permission: string
-        }
+        Args: { permission: string; user_id: string; workspace_id: string }
         Returns: boolean
       }
-      is_application_admin: {
-        Args: {
-          user_id?: string
-        }
-        Returns: boolean
-      }
+      is_application_admin: { Args: { user_id?: string }; Returns: boolean }
       is_workspace_admin: {
-        Args: {
-          user_id: string
-          workspace_id: string
-        }
+        Args: { user_id: string; workspace_id: string }
         Returns: boolean
       }
       is_workspace_member: {
-        Args: {
-          user_id: string
-          workspace_id: string
-        }
+        Args: { user_id: string; workspace_id: string }
         Returns: boolean
       }
-      make_user_app_admin: {
-        Args: {
-          user_id_arg: string
-        }
-        Returns: undefined
-      }
+      make_user_app_admin: { Args: { user_id_arg: string }; Returns: undefined }
       remove_app_admin_privilege_for_user: {
-        Args: {
-          user_id_arg: string
-        }
+        Args: { user_id_arg: string }
         Returns: undefined
       }
       update_workspace_member_permissions: {
-        Args: {
-          member_id: string
-          workspace_id: string
-          new_permissions: Json
-        }
+        Args: { member_id: string; new_permissions: Json; workspace_id: string }
         Returns: undefined
       }
     }
@@ -1801,344 +2578,35 @@ export type Database = {
       [_ in never]: never
     }
   }
-  storage: {
-    Tables: {
-      buckets: {
-        Row: {
-          allowed_mime_types: string[] | null
-          avif_autodetection: boolean | null
-          created_at: string | null
-          file_size_limit: number | null
-          id: string
-          name: string
-          owner: string | null
-          owner_id: string | null
-          public: boolean | null
-          updated_at: string | null
-        }
-        Insert: {
-          allowed_mime_types?: string[] | null
-          avif_autodetection?: boolean | null
-          created_at?: string | null
-          file_size_limit?: number | null
-          id: string
-          name: string
-          owner?: string | null
-          owner_id?: string | null
-          public?: boolean | null
-          updated_at?: string | null
-        }
-        Update: {
-          allowed_mime_types?: string[] | null
-          avif_autodetection?: boolean | null
-          created_at?: string | null
-          file_size_limit?: number | null
-          id?: string
-          name?: string
-          owner?: string | null
-          owner_id?: string | null
-          public?: boolean | null
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
-      migrations: {
-        Row: {
-          executed_at: string | null
-          hash: string
-          id: number
-          name: string
-        }
-        Insert: {
-          executed_at?: string | null
-          hash: string
-          id: number
-          name: string
-        }
-        Update: {
-          executed_at?: string | null
-          hash?: string
-          id?: number
-          name?: string
-        }
-        Relationships: []
-      }
-      objects: {
-        Row: {
-          bucket_id: string | null
-          created_at: string | null
-          id: string
-          last_accessed_at: string | null
-          metadata: Json | null
-          name: string | null
-          owner: string | null
-          owner_id: string | null
-          path_tokens: string[] | null
-          updated_at: string | null
-          user_metadata: Json | null
-          version: string | null
-        }
-        Insert: {
-          bucket_id?: string | null
-          created_at?: string | null
-          id?: string
-          last_accessed_at?: string | null
-          metadata?: Json | null
-          name?: string | null
-          owner?: string | null
-          owner_id?: string | null
-          path_tokens?: string[] | null
-          updated_at?: string | null
-          user_metadata?: Json | null
-          version?: string | null
-        }
-        Update: {
-          bucket_id?: string | null
-          created_at?: string | null
-          id?: string
-          last_accessed_at?: string | null
-          metadata?: Json | null
-          name?: string | null
-          owner?: string | null
-          owner_id?: string | null
-          path_tokens?: string[] | null
-          updated_at?: string | null
-          user_metadata?: Json | null
-          version?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "objects_bucketId_fkey"
-            columns: ["bucket_id"]
-            isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      s3_multipart_uploads: {
-        Row: {
-          bucket_id: string
-          created_at: string
-          id: string
-          in_progress_size: number
-          key: string
-          owner_id: string | null
-          upload_signature: string
-          user_metadata: Json | null
-          version: string
-        }
-        Insert: {
-          bucket_id: string
-          created_at?: string
-          id: string
-          in_progress_size?: number
-          key: string
-          owner_id?: string | null
-          upload_signature: string
-          user_metadata?: Json | null
-          version: string
-        }
-        Update: {
-          bucket_id?: string
-          created_at?: string
-          id?: string
-          in_progress_size?: number
-          key?: string
-          owner_id?: string | null
-          upload_signature?: string
-          user_metadata?: Json | null
-          version?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "s3_multipart_uploads_bucket_id_fkey"
-            columns: ["bucket_id"]
-            isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      s3_multipart_uploads_parts: {
-        Row: {
-          bucket_id: string
-          created_at: string
-          etag: string
-          id: string
-          key: string
-          owner_id: string | null
-          part_number: number
-          size: number
-          upload_id: string
-          version: string
-        }
-        Insert: {
-          bucket_id: string
-          created_at?: string
-          etag: string
-          id?: string
-          key: string
-          owner_id?: string | null
-          part_number: number
-          size?: number
-          upload_id: string
-          version: string
-        }
-        Update: {
-          bucket_id?: string
-          created_at?: string
-          etag?: string
-          id?: string
-          key?: string
-          owner_id?: string | null
-          part_number?: number
-          size?: number
-          upload_id?: string
-          version?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "s3_multipart_uploads_parts_bucket_id_fkey"
-            columns: ["bucket_id"]
-            isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "s3_multipart_uploads_parts_upload_id_fkey"
-            columns: ["upload_id"]
-            isOneToOne: false
-            referencedRelation: "s3_multipart_uploads"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      can_insert_object: {
-        Args: {
-          bucketid: string
-          name: string
-          owner: string
-          metadata: Json
-        }
-        Returns: undefined
-      }
-      extension: {
-        Args: {
-          name: string
-        }
-        Returns: string
-      }
-      filename: {
-        Args: {
-          name: string
-        }
-        Returns: string
-      }
-      foldername: {
-        Args: {
-          name: string
-        }
-        Returns: string[]
-      }
-      get_size_by_bucket: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          size: number
-          bucket_id: string
-        }[]
-      }
-      list_multipart_uploads_with_delimiter: {
-        Args: {
-          bucket_id: string
-          prefix_param: string
-          delimiter_param: string
-          max_keys?: number
-          next_key_token?: string
-          next_upload_token?: string
-        }
-        Returns: {
-          key: string
-          id: string
-          created_at: string
-        }[]
-      }
-      list_objects_with_delimiter: {
-        Args: {
-          bucket_id: string
-          prefix_param: string
-          delimiter_param: string
-          max_keys?: number
-          start_after?: string
-          next_token?: string
-        }
-        Returns: {
-          name: string
-          id: string
-          metadata: Json
-          updated_at: string
-        }[]
-      }
-      operation: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      search: {
-        Args: {
-          prefix: string
-          bucketname: string
-          limits?: number
-          levels?: number
-          offsets?: number
-          search?: string
-          sortcolumn?: string
-          sortorder?: string
-        }
-        Returns: {
-          name: string
-          id: string
-          updated_at: string
-          created_at: string
-          last_accessed_at: string
-          metadata: Json
-        }[]
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
 }
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
-  PublicTableNameOrOptions extends
-    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-        Database[PublicTableNameOrOptions["schema"]]["Views"])
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-        PublicSchema["Views"])
-    ? (PublicSchema["Tables"] &
-        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -2146,20 +2614,24 @@ export type Tables<
     : never
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -2167,20 +2639,24 @@ export type TablesInsert<
     : never
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -2188,30 +2664,97 @@ export type TablesUpdate<
     : never
 
 export type Enums<
-  PublicEnumNameOrOptions extends
-    | keyof PublicSchema["Enums"]
-    | { schema: keyof Database },
-  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof PublicSchema["CompositeTypes"]
-    | { schema: keyof Database },
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
-> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
-    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
 
+export const Constants = {
+  public: {
+    Enums: {
+      app_role: ["admin"],
+      marketing_blog_post_status: ["draft", "published"],
+      marketing_changelog_status: ["draft", "published"],
+      marketing_feedback_moderator_hold_category: [
+        "spam",
+        "off_topic",
+        "inappropriate",
+        "other",
+      ],
+      marketing_feedback_reaction_type: [
+        "like",
+        "heart",
+        "celebrate",
+        "upvote",
+      ],
+      marketing_feedback_thread_priority: ["low", "medium", "high"],
+      marketing_feedback_thread_status: [
+        "open",
+        "under_review",
+        "planned",
+        "closed",
+        "in_progress",
+        "completed",
+        "moderator_hold",
+      ],
+      marketing_feedback_thread_type: ["bug", "feature_request", "general"],
+      organization_joining_status: [
+        "invited",
+        "joinied",
+        "declined_invitation",
+        "joined",
+      ],
+      organization_member_role: ["owner", "admin", "member", "readonly"],
+      pricing_plan_interval: ["day", "week", "month", "year"],
+      pricing_type: ["one_time", "recurring"],
+      project_status: ["draft", "pending_approval", "approved", "completed"],
+      project_team_member_role: ["admin", "member", "readonly"],
+      subscription_status: [
+        "trialing",
+        "active",
+        "canceled",
+        "incomplete",
+        "incomplete_expired",
+        "past_due",
+        "unpaid",
+        "paused",
+      ],
+      workspace_invitation_link_status: [
+        "active",
+        "finished_accepted",
+        "finished_declined",
+        "inactive",
+      ],
+      workspace_member_role_type: ["owner", "admin", "member", "readonly"],
+      workspace_membership_type: ["solo", "team"],
+    },
+  },
+} as const
