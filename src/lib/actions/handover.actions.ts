@@ -1,4 +1,4 @@
-'''"use server";
+"use server";
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
@@ -160,4 +160,4 @@ export async function deleteHandoverRecord(recordId: string) {
   revalidatePath("/app/[workspaceId]/operations/handover");
   return { message: "Handover record deleted successfully." };
 }
-'''
+
