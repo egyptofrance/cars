@@ -1,4 +1,4 @@
-"use server";
+'''"use server";
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
@@ -18,7 +18,8 @@ const HandoverRecordSchema = z.object({
   to_driver_id: z.string().uuid("Invalid to driver ID."),
   handover_date: z.string().datetime("Invalid handover date format."),
   handover_odometer: z.number().int().min(0, "Odometer reading must be non-negative."),
-  handover_notes: z.string().optional().nullable(),  handover_condition: z.enum(["excellent", "good", "fair", "poor"]),
+  handover_notes: z.string().optional().nullable(),
+  handover_condition: z.enum(["excellent", "good", "fair", "poor"]),
   exterior_condition: z.enum(["excellent", "good", "fair", "poor"]),
   interior_condition: z.enum(["excellent", "good", "fair", "poor"]),
   odometer_reading: z.number().min(0).default(0),
@@ -37,7 +38,6 @@ export async function createHandoverRecord(formData: FormData) {
     redirect("/login");
   }
 
-  // استخراج البيانات من FormData
   const rawFormData = {
     vehicle_id: formData.get("vehicle_id"),
     from_driver_id: formData.get("from_driver_id") || null,
@@ -50,7 +50,6 @@ export async function createHandoverRecord(formData: FormData) {
     confirmation_date: formData.get("confirmation_date") || null,
   };
 
-  // التحقق من صحة البيانات
   const validatedFields = HandoverRecordSchema.safeParse(rawFormData);
 
   if (!validatedFields.success) {
@@ -89,14 +88,11 @@ export async function getHandoverRecords(workspaceId: string): Promise<{ data: H
     return { data: null, error: "User not authenticated." };
   }
 
-  // جلب سجلات التسليم مع معلومات السيارة والسائقين
   const { data, error } = await supabase
     .from("vehicle_handover_records")
     .select("*, vehicles(plate_number, brand, model), from_driver:workspace_members!from_driver_id(user_profiles(full_name)), to_driver:workspace_members!to_driver_id(user_profiles(full_name))")
     .order("handover_date", { ascending: false });
 
-  // ملاحظة: RLS Policy على vehicle_handover_records سيتولى فلترة البيانات حسب الـ workspace
-  
   if (error) {
     console.error("Supabase Error:", error);
     return { data: null, error: `Database Error: Failed to fetch handover records. ${error.message}` };
@@ -116,12 +112,15 @@ export async function confirmHandover(recordId: string) {
     redirect("/login");
   }
 
+  // Explicitly define the update object with the correct type.
+  const updateData: HandoverRecordUpdate = {
+    is_confirmed: true,
+    confirmation_date: new Date().toISOString(),
+  };
+
   const { error } = await supabase
     .from("vehicle_handover_records")
-    .update({
-      is_confirmed: true,
-      confirmation_date: new Date().toISOString(),
-    })
+    .update(updateData)
     .eq("id", recordId);
 
   if (error) {
@@ -161,3 +160,4 @@ export async function deleteHandoverRecord(recordId: string) {
   revalidatePath("/app/[workspaceId]/operations/handover");
   return { message: "Handover record deleted successfully." };
 }
+'''
