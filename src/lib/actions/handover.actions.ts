@@ -21,7 +21,7 @@ const HandoverRecordSchema = z.object({
   handover_notes: z.string().optional().nullable(),  handover_condition: z.enum(["excellent", "good", "fair", "poor"]),
   exterior_condition: z.enum(["excellent", "good", "fair", "poor"]),
   interior_condition: z.enum(["excellent", "good", "fair", "poor"]),
-  odometer_reading: z.number().min(0),.default("good"),
+  odometer_reading: z.number().min(0).default(0),
   is_confirmed: z.boolean().default(false),
   confirmation_date: z.string().datetime("Invalid confirmation date format.").optional().nullable(),
 });
