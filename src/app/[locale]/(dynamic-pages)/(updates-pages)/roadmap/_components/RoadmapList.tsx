@@ -85,7 +85,7 @@ export async function RoadmapList({ cards, isAdmin }: RoadmapListProps) {
                         variant="secondary"
                         className="rounded-full text-[0.7rem] py-0 px-1.5 h-5 flex items-center gap-1"
                       >
-                        {typeIcons[item.type]} {TAGS[item.type]}
+                        {typeIcons[item.type as keyof typeof typeIcons]} {TAGS[item.type as keyof typeof TAGS]}
                       </Badge>
                     </div>
 
