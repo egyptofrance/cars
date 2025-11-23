@@ -75,7 +75,7 @@ function FeedbackItem({ feedback, filters }: FeedbackItemProps) {
                   variant="secondary"
                   className="rounded-full text-[0.7rem] py-0 px-1.5 h-5 flex items-center gap-1"
                 >
-                  {typeIcons[feedback.type as keyof typeof typeIcons]} {TAGS[feedback.type as keyof typeof TAGS]}
+                  {typeIcons[feedback.type]} {TAGS[feedback.type]}
                 </Badge>
               </div>
 

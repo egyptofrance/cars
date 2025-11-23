@@ -50,6 +50,19 @@ export function ChatContainer({
       id,
       body: { id },
       onFinish({ content }) {
+        messages.push(
+          {
+            role: "user",
+            content: input,
+            id: nanoid(),
+          },
+          {
+            role: "assistant",
+            content,
+            id: nanoid(),
+          },
+        );
+
         if (pathname === `/project/${project.slug}`) {
           const chatPath = `/project/${project.slug}/chats/${id}`;
           window.history.replaceState(null, "", chatPath);
